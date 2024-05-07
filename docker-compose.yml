@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:6-jammy
+    container_name: users-mongo
+    restart: unless-stopped
+    ports:
+      - '27018:27017'
+    expose:
+      - 27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+    volumes:
+      - mongo-data:/data/db
+  app:
+    image: users-service:latest
+    container_name: users-service
+    restart: unless-stopped
+    ports:
+      - '8000:8000'
+    environment:
+      - MONGO__URL=mongodb://user:pass@mongodb:27017
+
+    depends_on:
+      - mongodb
+
+
+volumes:
+  mongo-data:
