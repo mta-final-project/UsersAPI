@@ -14,8 +14,8 @@ services:
     volumes:
       - mongo-data:/data/db
   app:
-    image: users-service:latest
-    container_name: users-service
+    image: ac/users-api:latest
+    container_name: users-api
     restart: unless-stopped
     ports:
       - '8000:8000'

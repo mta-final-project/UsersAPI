@@ -11,7 +11,7 @@ tasks:
     desc: Build docker image
     deps: ["requirements.txt"]
     cmds:
-      - docker build --tag ac/courses-api:latest .
+      - docker build --tag ac/users-api:latest .
 
   run-mongo:
     desc: Run local mongodb container
