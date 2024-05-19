@@ -1,7 +1,11 @@
 import boto3
 
 from src.core.settings import get_settings
-from src.services.cognito_schemas import CreateUserSchema, ConfirmEmailSchema, LoginSchema
+from src.services.cognito_schemas import (
+    CreateUserSchema,
+    ConfirmEmailSchema,
+    LoginSchema,
+)
 
 
 class CognitoService:
