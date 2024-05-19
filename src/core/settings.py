@@ -9,16 +9,15 @@ class ApiSettings(BaseModel):
     port: int = 8002
 
 
-class MongoSettings(BaseModel):
-    url: str = "mongodb://user:pass@localhost:27018"
-    database: str = "users"
+class CognitoSettings(BaseModel):
+    client_id: str = "7vsgt6q02n2pl4dfb362pvarlg"
 
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_nested_delimiter="__")
 
     api: ApiSettings = ApiSettings()
-    mongo: MongoSettings = MongoSettings()
+    cognito: CognitoSettings = CognitoSettings()
 
 
 @lru_cache
