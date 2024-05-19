@@ -13,7 +13,7 @@ services:
     volumes:
       - mongo-data:/data/db
   app:
-    image: users-service:latest
+    image: ac-users-api:latest
     restart: unless-stopped
     ports:
       - '8002:8002'
