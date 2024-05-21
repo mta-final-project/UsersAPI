@@ -2,7 +2,6 @@ version: '3.8'
 services:
   mongodb:
     image: mongo:6-jammy
-    container_name: users-mongo
     restart: unless-stopped
     ports:
       - '27018:27017'
@@ -14,11 +13,10 @@ services:
     volumes:
       - mongo-data:/data/db
   app:
-    image: ac/users-api:latest
-    container_name: users-api
+    image: ac-users-api:latest
     restart: unless-stopped
     ports:
-      - '8000:8000'
+      - '8002:8002'
     environment:
       - MONGO__URL=mongodb://user:pass@mongodb:27017
 
