@@ -1,5 +1,3 @@
-from typing import Any
-
 import boto3
 
 from src.api.schemas import (
@@ -14,8 +12,8 @@ class CognitoService:
         self._client = client
         self._client_id = client_id
 
-    def register(self, params: CreateUserSchema) -> Any:
-        response = self._client.sign_up(
+    def register(self, params: CreateUserSchema) -> None:
+        _ = self._client.sign_up(
             ClientId=self._client_id,
             Username=params.email,
             Password=params.password,
@@ -24,20 +22,18 @@ class CognitoService:
                 {"Name": "family_name", "Value": params.last_name},
             ],
         )
-        return response
 
     def confirm_email(self, params: ConfirmEmailSchema) -> Any:
-        response = self._client.confirm_sign_up(
+        _ = self._client.confirm_sign_up(
             ClientId=self._client_id,
             Username=params.email,
             ConfirmationCode=params.confirmation_code,
         )
-        return response
 
-    def login(self, params: LoginSchema) -> Any:
+    def login(self, params: LoginSchema) -> dict:
         response = self._client.initiate_auth(
             AuthFlow="USER_PASSWORD_AUTH",
             AuthParameters={"USERNAME": params.email, "PASSWORD": params.password},
             ClientId=self._client_id,
         )
-        return response
+        return response["AuthenticationResult"]

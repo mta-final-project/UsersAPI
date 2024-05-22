@@ -1,4 +1,4 @@
-from typing import Annotated, Any
+from typing import Annotated
 
 from fastapi import APIRouter, status, Depends
 
@@ -14,16 +14,16 @@ ServiceDep = Annotated[
 ]
 
 
-@router.post("/register", status_code=status.HTTP_200_OK)
-async def register(params: CreateUserSchema, service: ServiceDep) -> Any:
-    return service.register(params)
+@router.post("/register", status_code=status.HTTP_204_NO_CONTENT)
+async def register(params: CreateUserSchema, service: ServiceDep) -> None:
+    service.register(params)
 
 
-@router.post("/confirm-email", status_code=status.HTTP_200_OK)
-async def confirm_email(params: ConfirmEmailSchema, service: ServiceDep) -> Any:
-    return service.confirm_email(params)
+@router.post("/confirm-email", status_code=status.HTTP_204_NO_CONTENT)
+async def confirm_email(params: ConfirmEmailSchema, service: ServiceDep) -> None:
+    service.confirm_email(params)
 
 
 @router.post("/login", status_code=status.HTTP_200_OK)
-async def login(params: LoginSchema, service: ServiceDep) -> Any:
+async def login(params: LoginSchema, service: ServiceDep) -> dict:
     return service.login(params)
