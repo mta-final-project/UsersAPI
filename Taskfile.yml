@@ -42,3 +42,11 @@ tasks:
     desc: Stop the local server
     cmds:
       - docker-compose down
+
+  format:
+    desc: Format the code
+    cmds:
+      - ruff format .
+      - ruff check . --fix
+    aliases:
+      - f
