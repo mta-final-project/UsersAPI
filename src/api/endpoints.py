@@ -2,7 +2,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, status, Depends
 
-from src.api.schemas import LoginSchema, ConfirmEmailSchema, CreateUserSchema
+from src.api.schemas import LoginSchema, ConfirmEmailSchema, CreateUserSchema, LoginSuccessResponse
 from src.api.service import CognitoService
 from src.api.deps import cognito_service
 
@@ -25,5 +25,5 @@ async def confirm_email(params: ConfirmEmailSchema, service: ServiceDep) -> None
 
 
 @router.post("/login", status_code=status.HTTP_200_OK)
-async def login(params: LoginSchema, service: ServiceDep) -> dict:
+async def login(params: LoginSchema, service: ServiceDep) -> LoginSuccessResponse:
     return service.login(params)

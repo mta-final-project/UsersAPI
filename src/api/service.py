@@ -4,6 +4,7 @@ from src.api.schemas import (
     CreateUserSchema,
     ConfirmEmailSchema,
     LoginSchema,
+    LoginSuccessResponse
 )
 
 
@@ -23,17 +24,17 @@ class CognitoService:
             ],
         )
 
-    def confirm_email(self, params: ConfirmEmailSchema) -> Any:
+    def confirm_email(self, params: ConfirmEmailSchema) -> None:
         _ = self._client.confirm_sign_up(
             ClientId=self._client_id,
             Username=params.email,
             ConfirmationCode=params.confirmation_code,
         )
 
-    def login(self, params: LoginSchema) -> dict:
+    def login(self, params: LoginSchema) -> LoginSuccessResponse:
         response = self._client.initiate_auth(
             AuthFlow="USER_PASSWORD_AUTH",
             AuthParameters={"USERNAME": params.email, "PASSWORD": params.password},
             ClientId=self._client_id,
         )
-        return response["AuthenticationResult"]
+        return LoginSuccessResponse(**response["AuthenticationResult"])

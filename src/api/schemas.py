@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 
 
 class LoginSchema(BaseModel):
@@ -14,3 +14,11 @@ class CreateUserSchema(LoginSchema):
 class ConfirmEmailSchema(BaseModel):
     email: EmailStr
     confirmation_code: str
+
+
+class LoginSuccessResponse(BaseModel):
+    access_token: str = Field(..., validation_alias="AccessToken")
+    expires_in: int = Field(..., validation_alias="ExpiresIn")
+    token_type: str = Field(..., validation_alias="TokenType")
+    refresh_token: str = Field(..., validation_alias="RefreshToken")
+    id_token: str = Field(..., validation_alias="IdToken")
