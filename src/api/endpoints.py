@@ -19,11 +19,6 @@ async def register(params: CreateUserSchema, service: ServiceDep) -> None:
     service.register(params)
 
 
-@router.post("/confirm-email", status_code=status.HTTP_204_NO_CONTENT)
-async def confirm_email(params: ConfirmEmailSchema, service: ServiceDep) -> None:
-    service.confirm_email(params)
-
-
 @router.post("/login", status_code=status.HTTP_200_OK)
 async def login(params: LoginSchema, service: ServiceDep) -> LoginSuccessResponse:
     return service.login(params)

@@ -2,7 +2,6 @@ import boto3
 
 from src.api.schemas import (
     CreateUserSchema,
-    ConfirmEmailSchema,
     LoginSchema,
     LoginSuccessResponse
 )
@@ -22,13 +21,6 @@ class CognitoService:
                 {"Name": "given_name", "Value": params.first_name},
                 {"Name": "family_name", "Value": params.last_name},
             ],
-        )
-
-    def confirm_email(self, params: ConfirmEmailSchema) -> None:
-        _ = self._client.confirm_sign_up(
-            ClientId=self._client_id,
-            Username=params.email,
-            ConfirmationCode=params.confirmation_code,
         )
 
     def login(self, params: LoginSchema) -> LoginSuccessResponse:
