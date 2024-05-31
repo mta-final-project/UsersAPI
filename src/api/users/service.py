@@ -1,10 +1,6 @@
 import boto3
 
-from src.api.schemas import (
-    CreateUserSchema,
-    LoginSchema,
-    LoginSuccessResponse
-)
+from src.api.users.schemas import CreateUserSchema, LoginSchema, LoginSuccessResponse
 
 
 class CognitoService:

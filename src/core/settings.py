@@ -10,7 +10,12 @@ class ApiSettings(BaseModel):
 
 
 class CognitoSettings(BaseModel):
-    client_id: str = "7vsgt6q02n2pl4dfb362pvarlg"
+    client_id: str = "6r70ag4thnsitfb378fh87tj92"
+    pool_id: str = "us-east-1_U2F78N1y3"
+    region: str = "us-east-1"
+    jwk_url: str = (
+        f"https://cognito-idp.{region}.amazonaws.com/{pool_id}/.well-known/jwks.json"
+    )
 
 
 class Settings(BaseSettings):

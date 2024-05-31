@@ -2,11 +2,11 @@ from typing import Annotated
 
 from fastapi import APIRouter, status, Depends
 
-from src.api.schemas import LoginSchema, ConfirmEmailSchema, CreateUserSchema, LoginSuccessResponse
-from src.api.service import CognitoService
-from src.api.deps import cognito_service
+from src.api.users.schemas import LoginSchema, CreateUserSchema, LoginSuccessResponse
+from src.api.users.service import CognitoService
+from src.api.users.deps import cognito_service
 
-router = APIRouter(prefix="", tags=["auth"])
+router = APIRouter(prefix="/users", tags=["users"])
 
 ServiceDep = Annotated[
     CognitoService,

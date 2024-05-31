@@ -4,7 +4,7 @@ import boto3
 from fastapi import Depends
 
 from src.core.settings import get_settings
-from src.api.service import CognitoService
+from src.api.users.service import CognitoService
 
 
 def cognito_client() -> boto3.client:
