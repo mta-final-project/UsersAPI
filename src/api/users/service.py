@@ -1,6 +1,12 @@
+
 import boto3
 
-from src.api.users.schemas import CreateUserSchema, LoginSchema, LoginSuccessResponse
+from src.api.users.schemas import (
+    CreateUserSchema,
+    LoginSchema,
+    LoginSuccessResponse,
+    UserSchema,
+)
 
 
 class CognitoService:
@@ -26,3 +32,10 @@ class CognitoService:
             ClientId=self._client_id,
         )
         return LoginSuccessResponse(**response["AuthenticationResult"])
+
+    def get_user(self, token: str) -> UserSchema:
+        response = self._client.get_user(
+            AccessToken=token,
+        )
+
+        return UserSchema.from_cognito(response["UserAttributes"])

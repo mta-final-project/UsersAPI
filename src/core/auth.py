@@ -1,3 +1,4 @@
+from typing import Any
 import httpx
 from fastapi import HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
@@ -5,9 +6,23 @@ from jose import jwt, jwk, JWTError
 from jose.utils import base64url_decode
 from starlette.requests import Request
 from starlette.status import HTTP_403_FORBIDDEN
+from pydantic import BaseModel
 
 from src.core.settings import get_settings
-from src.api.auth.schemas import JWKS, JWTAuthCredentials
+
+type JWK = dict[str, str]
+
+
+class JWKS(BaseModel):
+    keys: list[JWK]
+
+
+class JWTAuthCredentials(BaseModel):
+    jwt_token: str
+    header: dict[str, str]
+    claims: dict[str, Any]
+    signature: str
+    message: str
 
 
 def get_jwk() -> JWKS:

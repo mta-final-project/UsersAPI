@@ -2,11 +2,19 @@ from typing import Annotated
 
 from fastapi import APIRouter, status, Depends
 
-from src.api.users.schemas import LoginSchema, CreateUserSchema, LoginSuccessResponse
+from src.core.auth import JWTAuthCredentials, JWTBearer
+from src.api.users.schemas import (
+    LoginSchema,
+    CreateUserSchema,
+    LoginSuccessResponse,
+)
 from src.api.users.service import CognitoService
 from src.api.users.deps import cognito_service
 
 router = APIRouter(prefix="/users", tags=["users"])
+
+auth = JWTBearer()
+
 
 ServiceDep = Annotated[
     CognitoService,
@@ -22,3 +30,10 @@ async def register(params: CreateUserSchema, service: ServiceDep) -> None:
 @router.post("/login", status_code=status.HTTP_200_OK)
 async def login(params: LoginSchema, service: ServiceDep) -> LoginSuccessResponse:
     return service.login(params)
+
+
+@router.get("/current-user", status_code=status.HTTP_200_OK)
+async def get_current_user(
+    service: ServiceDep, credentials: JWTAuthCredentials = Depends(auth)
+):
+    return service.get_user(credentials.jwt_token)

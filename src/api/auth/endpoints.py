@@ -1,7 +1,6 @@
 from fastapi import APIRouter, status, Depends
 
-from src.api.auth.schemas import JWTAuthCredentials
-from src.api.auth.service import JWTBearer
+from src.core.auth import JWTAuthCredentials, JWTBearer
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
