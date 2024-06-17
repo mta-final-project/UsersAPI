@@ -9,16 +9,20 @@ class ApiSettings(BaseModel):
     port: int = 8002
 
 
-class MongoSettings(BaseModel):
-    url: str = "mongodb://user:pass@localhost:27018"
-    database: str = "users"
+class CognitoSettings(BaseModel):
+    client_id: str = "6r70ag4thnsitfb378fh87tj92"
+    pool_id: str = "us-east-1_U2F78N1y3"
+    region: str = "us-east-1"
+    jwk_url: str = (
+        f"https://cognito-idp.{region}.amazonaws.com/{pool_id}/.well-known/jwks.json"
+    )
 
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_nested_delimiter="__")
 
     api: ApiSettings = ApiSettings()
-    mongo: MongoSettings = MongoSettings()
+    cognito: CognitoSettings = CognitoSettings()
 
 
 @lru_cache
