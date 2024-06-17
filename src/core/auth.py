@@ -10,7 +10,7 @@ from pydantic import BaseModel
 
 from src.core.settings import get_settings
 
-type JWK = dict[str, str]
+JWK = dict[str, str]
 
 
 class JWKS(BaseModel):
